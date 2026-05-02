@@ -1,4 +1,8 @@
 body{
+    margin: 0;
+}
+
+.statement{
     font-size: 20px;
     padding-left: 21%;
     padding-right: 21%;
