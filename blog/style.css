@@ -66,16 +66,20 @@ footer p{
     text-align: center;
 }
 
+footer {
+    margin-top: 25px;
+}
+
 .book-spacer{
     margin-top: 50px;
 
 }
 
+
 @media (min-width: 600px) {
     .book{
         grid-template-columns: 1fr 2fr;
         border-top: none;
-        margin-top: 20px;
     }
 
     .top{
