@@ -1,10 +1,7 @@
 const aCharacter= {
-    name: 'Espevé D\'Liavellen',
     class: 'Soul-Knife Rogue',
     level: 5,
     health: 100,
-    img: "enderpicture.png",
-    alt: "Picture of a pale elf wearing leather armor of cream, blue, and purple, with a white hood and mask, a purple blindfold, and weilding a black crystaline dagger.",
     attacked: function () {
         if (this.health > 0){
             this.health -= 20;
@@ -22,9 +19,6 @@ const aCharacter= {
         }
     }
 }
-document.querySelector('.image').setAttribute('src', aCharacter.img);
-document.querySelector('.image').setAttribute('alt', aCharacter.alt);
-document.querySelector('.name').textContent = aCharacter.name;
 renderStats(aCharacter);
 document.querySelector('#atk').addEventListener("click", function () {aCharacter.attacked()});
 document.querySelector('#lv').addEventListener("click", function () {aCharacter.levelUp()});
