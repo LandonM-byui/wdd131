@@ -1,0 +1,136 @@
+body{
+    margin: 10px;
+    font-family: sans-serif;
+}
+
+.page-title{
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.page-title p{
+    font-family: "Amatic SC", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 64px;
+    margin: 0;
+    margin-bottom: 5px;
+    align-self: flex-end;
+}
+
+.page-title img{
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 0;
+    width: 110px;
+    align-self: center;
+}
+
+.searchBar{
+    display: flex;
+    border: 1px solid black;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 2px;
+}
+
+input[type="text"]{
+    border: none;
+    outline: none;
+}
+
+.searchBar img{
+    max-width: 100%;
+    margin: 0;
+    padding-left: 3px;
+    border-left: 1px solid black;
+    width: 25px;
+    align-self: center;
+}
+
+.recipe{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.recipe img{
+    max-width: 100%;
+    margin: 0 auto;
+    width: 520px;
+    align-self: center;
+    padding: 2px;
+}
+
+.recipe button {
+    font-size: 18px;
+    align-self: flex-start;
+}
+
+.recipe-name{
+    font-family: "Amatic SC", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 36px;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    align-self: flex-start;
+    color: rgb(17, 118, 151);
+}
+
+.recipe-description{
+    display: none;
+}
+
+footer{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.social{
+    display: flex;
+    justify-content: center;
+}
+
+.social img{
+    max-width: 100%;
+    margin: 1px;
+    width: 25px;
+}
+
+.icon-credits{
+    padding-top: 10px;
+    align-self: center;
+}
+
+@media screen and (min-width: 550px){
+    .recipe{
+        flex-direction: row;
+        align-content: space-between;
+    }
+    .recipe-description{
+        display: block;
+    }
+    .sans-image{
+        padding-left: 20px;
+    }
+    .recipe img{
+        width: 350px;
+    }
+
+    footer{
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        padding-top: 25px;
+    }
+    .icon-credits{
+        padding-top: 0px;
+    }
+}
