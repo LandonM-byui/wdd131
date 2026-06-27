@@ -40,6 +40,7 @@ body{
 input[type="text"]{
     border: none;
     outline: none;
+    width: 100%;
 }
 
 .searchBar img{
@@ -111,6 +112,11 @@ footer{
 }
 
 @media screen and (min-width: 550px){
+    .parent-container{
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .recipe{
         flex-direction: row;
         align-content: space-between;
@@ -123,6 +129,7 @@ footer{
     }
     .recipe img{
         width: 350px;
+        margin: 0;
     }
 
     footer{
