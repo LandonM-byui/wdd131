@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spell-Scroll</title>
+    <meta name="description" content="Dungeons and Dragons 5.5e Spell Casting Web-tool">
+    <meta name="author" content="Landon Mahaffey">
+    <link type="text/css" rel="stylesheet" href="spell-scroll.css"/>
+</head>
+<body>
+    <header>
+        <img src="images/Spell-Scroll-logo.png" alt="Logo image" />
+    </header>
+    
+    <section class="characteristics-input">
+        <form id="characteristics">
+           <div class="field">
+                <label for="class">Choose a class:</label>
+                <select name="class" id="class">
+                    <option value="bard">Bard</option>
+                    <option value="cleric">Cleric</option>
+                    <option value="druid">Druid</option>
+                    <option value="paladin">Paladin</option>
+                    <option value="ranger">Ranger</option>
+                    <option value="sorcerer">Sorcerer</option>
+                    <option value="warlock">Warlock</option>
+                    <option value="wizard">Wizard</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="level">Choose a Level:</label>
+                <select name="level" id="level">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
+                    <option value=11>11</option>
+                    <option value=12>12</option>
+                    <option value=13>13</option>
+                    <option value=14>14</option>
+                    <option value=15>15</option>
+                    <option value=16>16</option>
+                    <option value=17>17</option>
+                    <option value=18>18</option>
+                    <option value=19>19</option>
+                    <option value=20>20</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="spell-bonus">Spellcasting Ability + Mods</label>
+                <input id="spell-bonus" name="spell-bonus" type="text" required />
+            </div>
+        </form>
+        <form id="eventForm">
+            <label for="class-spell-list">Click to add spells:</label>
+            <select name="class-spell-list" id="class-spell-list">
+                
+            </select>
+        </form>
+
+        <section class="characteristics-shown">
+            <p>Spell Attack: +5</p>
+            <button class="attack-roll">Attack</button>
+            <p>Spell Save: 13</p>
+            <button class="long rest">Long Rest</button>
+        </section>
+    </section>
+
+    <section class="character-spell-list">
+        <article class="spell-section">
+            <h2>Level 1</h2>
+            <section class="slots-and-names">
+                <p>Spell Slots</p>
+                <form id="spell-slots"></form>
+                    <input type="checkbox" id="spellslot">
+                    <input type="checkbox" id="spellslot">
+                    <input type="checkbox" id="spellslot">
+                </form>
+                <section class="spell-names">
+                    <p>Thunderwave</p>
+                    <p>Cure Wounds</p>
+                </section>
+            </section>
+        </article>
+    </section>
+
+    <section class="spell-popup">
+        <h2>Hellish Rebuke</h2>
+        <p>1st-level evocation</p>
+        <p>Concentration: no</p>
+        <p>Casting Trigger: Reaction, which you take in res...</p>
+        <p>Range: 60 feet</p>
+        <p>Components: VS</p>
+        <p>Duration: Instant</p>
+        <p>Classes: Warlock</p>
+        <p>Description:</p>
+        <p>bleb</p>
+        <p>At Higher Levels:</p>
+        <p>Does More Stuff</p>
+    </section>
+
+    <img src="images/dnd-ampersand.png" alt="d&d ampersand"/>
+</body>
+</html>
