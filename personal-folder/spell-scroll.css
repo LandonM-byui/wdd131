@@ -118,6 +118,15 @@ header img{
   border-radius: 7%;
   max-width: 450px;
   padding: 10px;
+  
+}
+
+.spell-popup-header{
+  border-bottom: 1px solid black;
+  position: relative;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .spell-popup p {
@@ -126,7 +135,24 @@ header img{
 
 .spell-popup h2{
   text-align: center;
-  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.close{
+  position: absolute;
+  padding-bottom: 2px;
+  top: 3%;
+  left: 90%;
+}
+
+.close:hover{
+  cursor: pointer;
+  color: red;
+}
+
+.hidden{
+  display: none;
 }
 
 footer{
