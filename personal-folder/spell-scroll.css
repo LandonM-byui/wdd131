@@ -75,6 +75,7 @@ header img{
 .character-spell-list{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 10px;
 }
@@ -88,6 +89,7 @@ header img{
   border: 2px solid black;
   border-radius: 7%;
   max-width: 200px;
+  background-color: white;
   padding: 5px;
 }
 
