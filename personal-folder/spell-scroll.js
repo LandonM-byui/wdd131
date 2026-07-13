@@ -1,73 +1,177 @@
-const classes = ["bard", "cleric", "druid", "paladin", "ranger", "sorcerer", "warlock", "wizard"]
-let spell_list = document.querySelector(".character-spell-list")
-let spell_popup = document.querySelector(".spell-popup")
-const test_spells = [{
-		"name": "Acid Arrow",
-		"level": 2,
-		"school": "evocation",
-		"classes": ["wizard"],
-		"actionType": "action",
-		"concentration": false,
-		"ritual": false,
-		"range": "90 feet",
-		"components": ["v", "s", "m"],
-		"material": "powdered rhubarb leaf",
-		"duration": "Instantaneous",
-		"description": "A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 Acid damage and 2d4 Acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage only.",
-		"higherLevelSlot": "The damage (both initial and later) increases by 1d4 for each spell slot level above 2."
-	},
-	{
-		"name": "Acid Splash",
-		"level": 0,
-		"school": "evocation",
-		"classes": ["sorcerer", "wizard"],
-		"actionType": "action",
-		"concentration": false,
-		"ritual": false,
-		"range": "60 feet",
-		"components": ["v", "s"],
-		"duration": "Instantaneous",
-		"description": "You create an acidic bubble at a point within range, where it explodes in a 5-foot-radius Sphere. Each creature in that Sphere must succeed on a Dexterity saving throw or take 1d6 Acid damage.",
-		"cantripUpgrade": "The damage increases by 1d6 when you reach levels 5 (2d6), 11 (3d6), and 17 (4d6)."
-	},
-	{
-		"name": "Aid",
-		"level": 2,
-		"school": "abjuration",
-		"classes": ["bard", "cleric", "druid", "paladin", "ranger"],
-		"actionType": "action",
-		"concentration": false,
-		"ritual": false,
-		"range": "30 feet",
-		"components": ["v", "s", "m"],
-		"material": "a strip of white cloth",
-		"duration": "8 hours",
-		"description": "Choose up to three creatures within range. Each target's Hit Point maximum and current Hit Points increase by 5 for the duration.",
-		"higherLevelSlot": "Each target's Hit Points increase by 5 for each spell slot level above 2."
-	},
-	{
-		"name": "Alarm",
-		"level": 1,
-		"school": "abjuration",
-		"classes": ["ranger", "wizard"],
-		"actionType": "action",
-		"concentration": false,
-		"ritual": true,
-		"castingTime": "1 minute",
-		"range": "30 feet",
-		"components": ["v", "s", "m"],
-		"material": "a bell and silver wire",
-		"duration": "8 hours",
-		"description": "You set an alarm against intrusion. Choose a door, a window, or an area within range that is no larger than a 20-foot Cube. Until the spell ends, an alarm alerts you whenever a creature touches or enters the warded area. When you cast the spell, you can designate creatures that won't set off the alarm. You also choose whether the alarm is audible or mental: \n\n Audible Alarm. The alarm produces the sound of a handbell for 10 seconds within 60 feet of the warded area. \n\n Mental Alarm. You are alerted by a mental ping if you are within 1 mile of the warded area. This ping awakens you if you're asleep."
-	}]
+let test_spells = [];
 
-
-
-function spellLevelTemplate (spell){
-
+async function loadSpells() {
+    const response = await fetch("data/srd-5.2-spells.json");
+    spells = await response.json();
 }
 
+loadSpells();
+const fullCasterSpellSlots = {1: [2, 0, 0, 0, 0, 0, 0, 0, 0], 2:  [3, 0, 0, 0, 0, 0, 0, 0, 0], 3:  [4, 2, 0, 0, 0, 0, 0, 0, 0], 4:  [4, 3, 0, 0, 0, 0, 0, 0, 0], 5:  [4, 3, 2, 0, 0, 0, 0, 0, 0], 6:  [4, 3, 3, 0, 0, 0, 0, 0, 0], 7:  [4, 3, 3, 1, 0, 0, 0, 0, 0], 8:  [4, 3, 3, 2, 0, 0, 0, 0, 0], 9:  [4, 3, 3, 3, 1, 0, 0, 0, 0], 10: [4, 3, 3, 3, 2, 0, 0, 0, 0], 11: [4, 3, 3, 3, 2, 1, 0, 0, 0], 12: [4, 3, 3, 3, 2, 1, 0, 0, 0], 13: [4, 3, 3, 3, 2, 1, 1, 0, 0], 14: [4, 3, 3, 3, 2, 1, 1, 0, 0], 15: [4, 3, 3, 3, 2, 1, 1, 1, 0], 16: [4, 3, 3, 3, 2, 1, 1, 1, 0], 17: [4, 3, 3, 3, 2, 1, 1, 1, 1], 18: [4, 3, 3, 3, 3, 1, 1, 1, 1], 19: [4, 3, 3, 3, 3, 2, 1, 1, 1], 20: [4, 3, 3, 3, 3, 2, 2, 1, 1]};
+const halfCasterSpellSlots = {1: [0, 0, 0, 0, 0], 2:[2, 0, 0, 0, 0], 3:[3, 0, 0, 0, 0], 4:[3, 0, 0, 0, 0], 5:[4, 2, 0, 0, 0], 6:[4, 2, 0, 0, 0], 7:[4, 3, 0, 0, 0], 8:[4, 3, 0, 0, 0], 9:[4, 3, 2, 0, 0], 10:[4, 3, 2, 0, 0], 11:[4, 3, 3, 0, 0], 12:[4, 3, 3, 0, 0], 13:[4, 3, 3, 1, 0], 14:[4, 3, 3, 1, 0], 15:[4, 3, 3, 2, 0], 16:[4, 3, 3, 2, 0], 17:[4, 3, 3, 3, 1], 18:[4, 3, 3, 3, 1], 19:[4, 3, 3, 3, 2], 20:[4, 3, 3, 3, 2]};
+const warlockSpellSlots = {1: 1, 2: 2, 3: 2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2, 9: 2, 10:2, 11:3, 12:3, 13:3, 14:3, 15:3, 16:3, 17:4, 18:4, 19:4, 20:4};
+let casterType = "";
+let current_class = "";
+let current_level = 0;
+let max_spell_level = 1;
+let current_bonus = 0;
+let proficiency = 0;
+let spells_known = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}, 9:{}};
+
+let class_input = document.querySelector("#class")
+let level_input = document.querySelector("#level")
+let bonus_input = document.querySelector("#spell-bonus")
+let submit_stats = document.querySelector("#char-submit")
+
+let class_spell_list = document.querySelector("#class-spell-list");
+let toggle_spell_btn = document.querySelector("#toggleSpellBtn")
+
+let spell_atk = document.querySelector("#spell-atk");
+let spell_sv = document.querySelector("#spell-sv");
+
+let spell_list = document.querySelector(".character-spell-list")
+let spell_popup = document.querySelector(".spell-popup")
+
+
+
+
+
 renderSpellPopup(test_spells[3])
+submit_stats.addEventListener("click", submitCharacteristics)
+
+toggle_spell_btn.addEventListener("click", toggleSpell);
+
+function submitCharacteristics(){
+	event.preventDefault();
+	getStats();
+	createAvailableSpells();
+	renderAllSpells();
+	spell_atk.textContent = `Spell Attack: +${proficiency+ current_bonus}`;
+	spell_sv.textContent = `Spell Save: DC ${proficiency + current_bonus + 8}`;
+}
+
+function createAvailableSpells(){
+	class_spell_list.innerHTML = "";
+	spells_known = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}, 9:{}};
+	let options = "";
+	for (i = 0; i < test_spells.length; i++){
+		if (test_spells[i].classes.includes(current_class) && test_spells[i].level <= max_spell_level){
+			options += `<option value=${i}>${test_spells[i].name}</option>`
+		}
+	}
+	class_spell_list.innerHTML = options;
+}
+
+function getStats(){
+	current_class = class_input.value;
+	current_level = parseInt(level_input.value, 10);
+	current_bonus = parseInt(bonus_input.value, 10);
+	proficiency = 1 + Math.ceil(current_level/4);
+	if (["bard", "cleric", "druid", "sorcerer", "warlock", "wizard"].includes(current_class)){
+		max_spell_level = Math.floor((current_level + 1) / 2);
+		if (max_spell_level > 9){
+			max_spell_level = 9;
+		}
+		casterType = "full";
+	}
+	else if (["ranger", "paladin"].includes(current_class)){
+		if (current_level == 1){
+			max_spell_level = -1;
+		}
+		else
+		{
+			max_spell_level = Math.ceil(current_level/4);
+		}
+		casterType = "half";
+	}
+	if (current_class == "warlock"){
+		casterType = "problemChild";
+	}
+}
+
+function toggleSpell(){
+	event.preventDefault();
+
+	let spell = test_spells[class_spell_list.value]
+
+	if (Object.hasOwn(spells_known[spell.level], spell.name)){
+		delete spells_known[spell.level][spell.name];
+	}
+	else{
+		spells_known[spell.level][spell.name] = spell;
+	}
+	renderAllSpells();
+}
+
+function renderAllSpells(){
+	let html = ""
+	for (let i = 0; i <= max_spell_level; i++){
+		let addition = spellLevelTemplate(i)
+		if (addition != ""){
+			html += addition;
+		}
+	}
+	spell_list.innerHTML = html;
+}
+
+function renderSpellsKnown(level){
+	let section = document.querySelector(`#${level}-level`);
+	section.innerHTML = "";
+	
+}
+
+function spellLevelTemplate (level){
+	let sL = `Level ${level}`;
+	let slots = 0;
+	if (level == 0){
+		sL = "Cantrips"
+		if (casterType == "half"){
+			return "";
+		}
+	}
+	else if (casterType == "full"){
+		slots = fullCasterSpellSlots[current_level][level-1];
+	}
+	else if (casterType == "half"){
+		slots = halfCasterSpellSlots[current_level][level-1];
+		
+	}
+	else if (casterType == "problemChild"){
+		let warlockLevelslot = max_spell_level;
+		if (max_spell_level >= 5){
+			warlockLevelslot = 5;
+		}
+		if (level == warlockLevelslot){
+			slots = warlockSpellSlots[current_level]
+		}
+	}
+	var template = `<article class="spell-section">
+            <h2>${sL}</h2>
+            <section id= "${level}-level" class="slots-and-names">
+                <section class="slots">
+                    <p>Spell Slots: </p>
+                    <section class="spell-slots">`
+	for (let i = slots; i != 0; i--){
+		template += `<input type="checkbox">`
+	}              
+	template += `</form>
+                    </section>
+                </section>
+                <section class="spell-names">`;   
+	if (Object.keys(spells_known[level]).length === 0){
+		template += "<p>Use the drop down to add a spell</p>"
+	}
+	else
+    {
+		for (const [key, value] of Object.entries(spells_known[level])){
+			template += `<p onclick="renderSpellPopup(${value})">${value.name}</p>`
+		}
+	}
+    template += `</section>
+            </section>
+        </article>`;
+
+	return template;
+}
 
 function renderSpellPopup(spell){
     spell_popup.innerHTML = spellPopupTemplate(spell);
@@ -75,7 +179,6 @@ function renderSpellPopup(spell){
 }
 
 function spellPopupTemplate (spell){
-    console.log("hi");
     let upcast = "";
     let duration = "";
     var spell_level = "";
