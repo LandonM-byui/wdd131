@@ -1,7 +1,7 @@
-let test_spells = [];
+let spells = [];
 
 async function loadSpells() {
-    const response = await fetch("data/srd-5.2-spells.json");
+    const response = await fetch("srd-5.2-spells.json");
     spells = await response.json();
 }
 
@@ -26,19 +26,26 @@ let class_spell_list = document.querySelector("#class-spell-list");
 let toggle_spell_btn = document.querySelector("#toggleSpellBtn")
 
 let spell_atk = document.querySelector("#spell-atk");
+let attack_btn = document.querySelector(".attack-roll")
+attack_btn.addEventListener("click", attack)
 let spell_sv = document.querySelector("#spell-sv");
+let long_rest = document.querySelector(".long-rest")
+long_rest.addEventListener("click", renderAllSpells);
 
 let spell_list = document.querySelector(".character-spell-list")
 let spell_popup = document.querySelector(".spell-popup")
 
-
-
-
-
-renderSpellPopup(test_spells[3])
 submit_stats.addEventListener("click", submitCharacteristics)
 
 toggle_spell_btn.addEventListener("click", toggleSpell);
+
+initialize()
+
+
+async function initialize() {
+    await loadSpells();
+    renderAllSpells();
+}
 
 function submitCharacteristics(){
 	event.preventDefault();
@@ -53,9 +60,9 @@ function createAvailableSpells(){
 	class_spell_list.innerHTML = "";
 	spells_known = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}, 9:{}};
 	let options = "";
-	for (i = 0; i < test_spells.length; i++){
-		if (test_spells[i].classes.includes(current_class) && test_spells[i].level <= max_spell_level){
-			options += `<option value=${i}>${test_spells[i].name}</option>`
+	for (i = 0; i < spells.length; i++){
+		if (spells[i].classes.includes(current_class) && spells[i].level <= max_spell_level){
+			options += `<option value=${i}>${spells[i].name}</option>`
 		}
 	}
 	class_spell_list.innerHTML = options;
@@ -90,16 +97,21 @@ function getStats(){
 
 function toggleSpell(){
 	event.preventDefault();
+	if (proficiency != 0){
+		let spell = spells[class_spell_list.value]
 
-	let spell = test_spells[class_spell_list.value]
-
-	if (Object.hasOwn(spells_known[spell.level], spell.name)){
-		delete spells_known[spell.level][spell.name];
+		if (Object.hasOwn(spells_known[spell.level], spell.name)){
+			delete spells_known[spell.level][spell.name];
+		}
+		else{
+			spells_known[spell.level][spell.name] = spell;
+		}
+		renderAllSpells();	
 	}
 	else{
-		spells_known[spell.level][spell.name] = spell;
+		window.alert('Please enter your stats first');
 	}
-	renderAllSpells();
+	
 }
 
 function renderAllSpells(){
@@ -147,9 +159,11 @@ function spellLevelTemplate (level){
 	var template = `<article class="spell-section">
             <h2>${sL}</h2>
             <section id= "${level}-level" class="slots-and-names">
-                <section class="slots">
-                    <p>Spell Slots: </p>
-                    <section class="spell-slots">`
+                <section class="slots">`
+	if (level != 0){
+    	template += `<p>Spell Slots: </p>`;
+	}
+    template += `<section class="spell-slots">`;
 	for (let i = slots; i != 0; i--){
 		template += `<input type="checkbox">`
 	}              
@@ -158,12 +172,12 @@ function spellLevelTemplate (level){
                 </section>
                 <section class="spell-names">`;   
 	if (Object.keys(spells_known[level]).length === 0){
-		template += "<p>Use the drop down to add a spell</p>"
+		template += "<p>&lt;Add spells above&gt;</p>"
 	}
 	else
     {
 		for (const [key, value] of Object.entries(spells_known[level])){
-			template += `<p onclick="renderSpellPopup(${value})">${value.name}</p>`
+			template += `<p onclick="renderSpellPopup('${key}', ${level})">${value.name}</p>`
 		}
 	}
     template += `</section>
@@ -173,12 +187,22 @@ function spellLevelTemplate (level){
 	return template;
 }
 
-function renderSpellPopup(spell){
-    spell_popup.innerHTML = spellPopupTemplate(spell);
-    spell_popup.classList.toggle('hidden');
+function renderSpellPopup(spell, level){
+	spell_popup.innerHTML = "";
+    spell_popup.innerHTML = spellPopupTemplate(spell, level);
+	document.querySelector(".close").addEventListener("click", hideSpellPopup)
+	if (spell_popup.classList.contains('hidden')){
+    	spell_popup.classList.toggle('hidden');
+	}
 }
 
-function spellPopupTemplate (spell){
+function hideSpellPopup(){
+	spell_popup.classList.toggle('hidden');
+}
+
+function spellPopupTemplate (name, level){
+	let levelsSpells = spells_known[level];
+	let spell = levelsSpells[name];
     let upcast = "";
     let duration = "";
     var spell_level = "";
@@ -237,3 +261,14 @@ function spellPopupTemplate (spell){
     
     return template;
 }
+
+function attack(){
+	let num = Math.floor(Math.random() * 20 + 1)
+	if (proficiency != 0){
+		window.alert(`You rolled a ${num} + ${current_bonus + proficiency} for a ${num + current_bonus + proficiency}`)
+	}
+	else{
+		window.alert('Please enter your stats first');
+	}
+}
+

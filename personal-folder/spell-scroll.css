@@ -9,7 +9,7 @@ img{
 
 .background{
   position: absolute;
-  top: 50%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -0%);
   opacity: 0.25;
@@ -17,7 +17,7 @@ img{
   z-index: -1;
 }
 
-p{
+p, a{
   font-family: "Quintessential";
   margin: 0px;
 }
@@ -39,11 +39,17 @@ header img{
   margin: auto;
 }
 
+.characteristics-input{
+  margin: 5px;
+  padding: 20px;
+  border-bottom: 1px solid goldenrod;
+}
+
 .characteristics-input form{
   margin: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .characteristics-input form #spell-bonus{
@@ -52,18 +58,17 @@ header img{
 
 .spell-select{
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .characteristics-shown{
   text-align: center;
+  margin: 20px;
 }
 
 .characteristics-shown p{
   display: inline-block;
-  margin-left: 5px;
-  margin-right: 5px;
 }
 
 .characteristics-shown button{
@@ -72,7 +77,13 @@ header img{
   margin-right: 5px;
 }
 
+.spells-section{
+  min-height: 80vh;
+}
+
 .character-spell-list{
+  margin: 10px;
+  border-top: 1px solid goldenrod;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
