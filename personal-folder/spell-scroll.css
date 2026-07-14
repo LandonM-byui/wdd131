@@ -25,11 +25,13 @@ p, a{
 h2{
   font-family: "Almendra";
   margin: 0px;
+  color: #41351d;
 }
 
 header{
   margin-left: 10px;
   margin-right: 10px;
+  padding-bottom: 20px;
   border-bottom: 1px solid goldenrod;
 }
 
@@ -119,12 +121,17 @@ header img{
   align-self: center;
 }
 
+input[type="checkbox"]{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .spell-names p {
   border-bottom: 1px solid black;
 }
 
 .spell-popup{
-  background-color: #aa9569;
+  background-color: #d1bc8e;
   margin: auto;
   margin-top: 20px;
   border: 2px solid black;
@@ -132,6 +139,12 @@ header img{
   max-width: 450px;
   padding: 10px;
   
+}
+
+.clickable:hover{
+  cursor: pointer;
+  color: rgb(197, 142, 2);
+  font-style: bold;
 }
 
 .spell-popup-header{

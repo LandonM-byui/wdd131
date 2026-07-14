@@ -60,9 +60,10 @@ function createAvailableSpells(){
 	class_spell_list.innerHTML = "";
 	spells_known = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}, 9:{}};
 	let options = "";
+
 	for (i = 0; i < spells.length; i++){
 		if (spells[i].classes.includes(current_class) && spells[i].level <= max_spell_level){
-			options += `<option value=${i}>${spells[i].name}</option>`
+			options += `<option value=${i}>${spells[i].name}  {Lv-${spells[i].level}}</option>`
 		}
 	}
 	class_spell_list.innerHTML = options;
@@ -177,7 +178,12 @@ function spellLevelTemplate (level){
 	else
     {
 		for (const [key, value] of Object.entries(spells_known[level])){
-			template += `<p onclick="renderSpellPopup('${key}', ${level})">${value.name}</p>`
+			template += `<p class="clickable" onclick="renderSpellPopup('${key}', ${level})">${value.name}`
+			if (value.ritual) {
+				template += `  (r)`;
+			}
+				
+			template += `</p>`;
 		}
 	}
     template += `</section>
