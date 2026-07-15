@@ -117,10 +117,19 @@ function toggleSpell(){
 
 function renderAllSpells(){
 	let html = ""
-	for (let i = 0; i <= max_spell_level; i++){
-		let addition = spellLevelTemplate(i)
-		if (addition != ""){
-			html += addition;
+	if (current_level == 1 && casterType == "half"){
+		html = `<article class="spell-section">
+            <h2>Half-Casters</h2>
+            <section id= "$0-level" class="slots-and-names">
+                <section class="spell-names">&lt;Half-casters get no spells at Lv 1&gt;</section>
+				</section></article>`;
+	}
+	else{
+		for (let i = 0; i <= max_spell_level; i++){
+			let addition = spellLevelTemplate(i)
+			if (addition != ""){
+				html += addition;
+			}
 		}
 	}
 	spell_list.innerHTML = html;
@@ -168,12 +177,11 @@ function spellLevelTemplate (level){
 	for (let i = slots; i != 0; i--){
 		template += `<input type="checkbox">`
 	}              
-	template += `</form>
-                    </section>
+	template += `</section>
                 </section>
                 <section class="spell-names">`;   
 	if (Object.keys(spells_known[level]).length === 0){
-		template += "<p>&lt;Add spells above&gt;</p>"
+		template += "<p>&lt;Add spells above&gt;</p> <p>&lt;Click on Added Spells to show below&gt;</p>"
 	}
 	else
     {
