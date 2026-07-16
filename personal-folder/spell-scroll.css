@@ -1,6 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&family=Amatic+SC:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&family=Amatic+SC:wght@400;700&family=Quintessential&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&family=Amatic+SC:wght@400;700&family=Marcellus&family=Quintessential&display=swap');
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background-image: linear-gradient(lightgoldenrodyellow, #f3dcac);
+
+}
 
 img{
   width: 100%;
@@ -17,9 +27,41 @@ img{
   z-index: -1;
 }
 
+.how-to-popup p {
+  color: black;
+  font-family: 'Marcellus';
+  padding-bottom: 5px;
+}
+
 p, a{
   font-family: "Quintessential";
   margin: 0px;
+}
+
+label{
+  font-family: "Almendra";
+  margin: 5px;
+  font-size: 18px;
+}
+
+button, input[type="submit"]{
+  background-color: #d1bc8e;
+  border: 2px solid maroon;
+  border-radius: 15px;
+}
+
+button:hover, input[type="submit"]:hover{
+  box-shadow: 2px 2px 5px #41351d;
+  text-shadow: 1px 1px 5px #41351d;
+  cursor: pointer;
+}
+
+select, #spell-bonus{
+  font-family: "Almendra";
+}
+
+select:hover, #spell-bonus:hover{
+  cursor: pointer;
 }
 
 h2{
@@ -32,19 +74,30 @@ header{
   margin-left: 10px;
   margin-right: 10px;
   padding-bottom: 20px;
-  border-bottom: 1px solid goldenrod;
+  border-bottom: 2px solid goldenrod;
+}
+
+header p {
+  text-align: center;
+  color: maroon;
+  font-size: 18px;
+}
+
+header p:hover{
+  cursor: pointer;
 }
 
 header img{
   max-width: 500px;
   display: block;
   margin: auto;
+  margin-bottom: 20px;
 }
 
 .characteristics-input{
   margin: 5px;
   padding: 20px;
-  border-bottom: 1px solid goldenrod;
+  border-bottom: 2px solid goldenrod;
 }
 
 .characteristics-input form{
@@ -85,7 +138,7 @@ header img{
 
 .character-spell-list{
   margin: 10px;
-  border-top: 1px solid goldenrod;
+  border-top: 2px solid goldenrod;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -130,7 +183,7 @@ input[type="checkbox"]{
   border-bottom: 1px solid black;
 }
 
-.spell-popup{
+.spell-popup, .how-to-popup{
   background-color: #d1bc8e;
   margin: auto;
   margin-top: 20px;
@@ -138,15 +191,29 @@ input[type="checkbox"]{
   border-radius: 15px;
   max-width: 450px;
   padding: 10px;
+}
+
+.how-to-popup{
+  position: absolute;
+  top: 30vh;
+  left: 50%;
+  background-color: white;
+  transform: translate(-50%, -0%);
+  max-width: 600px;
+  min-width: 80vw;
+  z-index: 2;
   
 }
+
 
 .clickable:hover{
   cursor: pointer;
   color: rgb(197, 142, 2);
 }
 
-.spell-popup-header{
+
+
+.spell-popup-header, .how-to-header{
   border-bottom: 1px solid black;
   position: relative;
   padding-bottom: 10px;
@@ -158,10 +225,15 @@ input[type="checkbox"]{
   margin-top: 5px;
 }
 
-.spell-popup h2{
+.spell-popup h2, .how-to-popup h2{
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.description{
+  color: black;
+  font-family: 'Marcellus';
 }
 
 .close{

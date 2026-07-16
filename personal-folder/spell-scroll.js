@@ -17,6 +17,10 @@ let current_bonus = 0;
 let proficiency = 0;
 let spells_known = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}, 9:{}};
 
+let how_to_popup = document.querySelector(".how-to-popup")
+let how_to_close = document.querySelector("#close-how-to")
+let how_to_use = document.querySelector("#how-to-use")
+
 let class_input = document.querySelector("#class")
 let level_input = document.querySelector("#level")
 let bonus_input = document.querySelector("#spell-bonus")
@@ -35,9 +39,12 @@ long_rest.addEventListener("click", renderAllSpells);
 let spell_list = document.querySelector(".character-spell-list")
 let spell_popup = document.querySelector(".spell-popup")
 
-submit_stats.addEventListener("click", submitCharacteristics)
+submit_stats.addEventListener("click", submitCharacteristics);
 
 toggle_spell_btn.addEventListener("click", toggleSpell);
+
+how_to_use.addEventListener("click", showHowTo);
+how_to_close.addEventListener("click", showHowTo);
 
 initialize()
 
@@ -45,6 +52,10 @@ initialize()
 async function initialize() {
     await loadSpells();
     renderAllSpells();
+}
+
+function showHowTo(){
+	how_to_popup.classList.toggle("hidden")
 }
 
 function submitCharacteristics(){
@@ -181,7 +192,7 @@ function spellLevelTemplate (level){
                 </section>
                 <section class="spell-names">`;   
 	if (Object.keys(spells_known[level]).length === 0){
-		template += "<p>&lt;Add spells above&gt;</p> <p>&lt;Click on Added Spells to show below&gt;</p>"
+		template += "<p>&lt;No Spells Added&gt;</p>"
 	}
 	else
     {
@@ -204,7 +215,7 @@ function spellLevelTemplate (level){
 function renderSpellPopup(spell, level){
 	spell_popup.innerHTML = "";
     spell_popup.innerHTML = spellPopupTemplate(spell, level);
-	document.querySelector(".close").addEventListener("click", hideSpellPopup)
+	document.querySelector("#close-spell-popup").addEventListener("click", hideSpellPopup)
 	if (spell_popup.classList.contains('hidden')){
     	spell_popup.classList.toggle('hidden');
 	}
@@ -254,22 +265,22 @@ function spellPopupTemplate (name, level){
 
     var template = `<section class="spell-popup-header">
             <h2>${spell.name}</h2>
-            <h2 class="close">x</h2>
+            <h2 class="close" id="close-spell-popup">x</h2>
         </section>
         <p>${spell_level}</p>
         <p><b>Concentration: </b> ${spell.concentration}</p>
         <p><b>Casting Time: </b> ${duration}</p>
         <p><b>Range: </b> ${spell.range}</p>
         <p><b>Components: </b> ${spell.components}</p>
-        <p><b>Duration: </b> ${spell.duration}t</p>
+        <p><b>Duration: </b> ${spell.duration}</p>
         <p><b>Classes: </b> ${spell.classes}</p>
         <p><b>Description: </b></p>
-        <p>${spell.description}</p>`
+        <p class = "description">${spell.description}</p>`
 
     
     if (upcast != ""){
         template += `<p><b>At Higher Levels:</b></p>
-        <p>${upcast}</p>`
+        <p class = "description">${upcast}</p>`
     }
 
     
